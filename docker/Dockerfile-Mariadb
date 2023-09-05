@@ -1,0 +1,2 @@
+FROM mariadb:latest
+COPY create_databases_mariadb.sh /docker-entrypoint-initdb.d/

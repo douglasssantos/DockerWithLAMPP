@@ -8,7 +8,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_MULTIPLE_DATABASES: teste_db
+      POSTGRES_MULTIPLE_DATABASES: db_teste,db_teste2
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_INITDB: |
@@ -21,11 +21,15 @@ services:
   mariadb:
     image: mariadb
     container_name: 'mariadb'
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-Mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_MULTIPLE_DATABASES: db_teste,db_teste2
       MYSQL_USER: mariadb
       MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data-mysql:/var/lib/mysql
     ports:
