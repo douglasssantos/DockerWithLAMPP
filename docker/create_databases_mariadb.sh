@@ -6,10 +6,9 @@ set -u
 function create_user_and_database() {
 	local database=$1
 	echo "  Creating database '$database'"
-	mysql -v ON_ERROR_STOP=1 --username "$MYSQL_USER" --password "$MYSQL_PASSWORD" <<-EOSQL
+	mariadb -v --user=root --password="$MARIADB_ROOT_PASSWORD" <<-EOSQL
 		CREATE DATABASE IF NOT EXISTS $database;
-		GRANT ALL PRIVILEGES ON database.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
-	    CREATE DATABASE $database;
+		GRANT ALL PRIVILEGES ON $database.* TO $MARIADB_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
 EOSQL
 }
 
