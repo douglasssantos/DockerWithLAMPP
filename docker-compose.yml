@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:14
+    container_name: 'postgres'
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-Postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: k8_onboarding,k8_onboarding_v2,k8_conta,k8_backoffice,k8_rh
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB: |
+        sed -i -e 's/max_connections.*/max_connections = 5000/' /var/lib/postgresql/data/postgresql.conf
+        sed -i -e 's/#log_min_duration_statement = .*/log_min_duration_statement = 0/' /var/lib/postgresql/data/postgresql.conf
+    volumes:
+      - db-data-postgres:/var/lib/postgresql/data/
+    stdin_open: true
+
+  mariadb:
+    image: mariadb
+    container_name: 'mariadb'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: root
+    volumes:
+      - db-data-mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    stdin_open: true
+
+  projects:
+    image: php:8.1-apache
+    container_name: 'projects'
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-Apache
+      args:
+        uid: 1000
+        NODE_VERSION: '14.21.3'
+    environment:
+      - APACHE_RUN_USER=#1000
+      - APACHE_RUN_GROUP=#1000
+    ports:
+      - '80:80'
+    volumes:
+      - './projects:/var/www'
+      - './docker/hosts:/etc/hosts'
+      - './docker/lamp:/usr/local/bin/lamp'
+      - './docker/apache/conf/dir.conf:/etc/apache2/mods-enabled/dir.conf'
+      - './docker/apache/sites:/etc/apache2/sites-available'
+      - './docker/apache/sites:/etc/apache2/sites-enabled'
+    depends_on:
+      - postgres
+      - mariadb
+    links:
+      - postgres
+      - mariadb
+
+volumes:
+  db-data-postgres:
+  db-data-mysql:
