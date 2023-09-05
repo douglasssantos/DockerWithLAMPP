@@ -16,7 +16,7 @@ e muito mais.
 > > > 
 > > > **Passo 2:** acesse a pasta do projeto, e execute o comando:  <kbd>**docker-compose up -d --build**</kbd>
 > > >
-> > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. <kbd>**::1 dominio-teste** </kbd>
+> > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. <kbd>**::1 site2-teste** </kbd>
 > >
 > > **Passo 2:** Aplicando permissões nos projetos.
 > > > **Passo 1.1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
@@ -51,17 +51,11 @@ e muito mais.
 > > > 
 > > 
 > > **Passo 5:** Após toda a conclusão dos passos realize a migração dos banco de dados dentro de cada projeto e se necessário edite o arquvo <kbd> **.env** </kbd>.
-> > > **Passo 5.1:** para conectar com o banco de dados basta inserir a referência do container como host e as credenciais de acesso. segue abaixo alguns exemplos.
-<kbd> DB_HOST=mariadb
-<br>
-DB_PORT=3306
-<br>
-DB_DATABASE=panel
-<br>
-DB_USERNAME=mariadb
-<br>
-DB_PASSWORD=root</kbd>
-<br>
+> > > **Passo 5.1:** para conectar com o banco de dados basta inserir a referência do container como host e as credenciais de acesso.<br><br> segue abaixo alguns exemplos.<br><br>
+> > > **Passo 5.2:** Exemplo MariaDB.
+> > > <br><kbd> DB_HOST=mariadb<br>DB_PORT=3306<br>DB_DATABASE=db_teste<br>DB_USERNAME=mariadb<br>DB_PASSWORD=root</kbd><br>
+> > > **Passo 5.3:** Exemplo Postgres.
+> > > <br><kbd> DB_HOST=postgres<br>DB_PORT=5432<br>DB_DATABASE=db_teste<br>DB_USERNAME=postgres<br>DB_PASSWORD=root</kbd><br>
 
 #### Não esqueça de me seguir github e marcar uma estrela no projeto.
 
