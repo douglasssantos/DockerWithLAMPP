@@ -15,7 +15,7 @@ e muito mais.
 > > > **Passo 1:** acesse a pasta do projeto e edite o arquivo docker-compose.yaml
 > > > 
 > > > **Passo 2:** acesse a pasta do projeto, e execute o comando:  <kbd>**docker-compose up -d --build**</kbd>
-
+> > >
 > > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. **::1 dominio-teste** </kbd>
 > >
 > > **Passo 2:** Aplicando permissões nos projetos.
