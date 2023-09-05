@@ -16,7 +16,7 @@ e muito mais.
 > > > 
 > > > **Passo 2:** acesse a pasta do projeto, e execute o comando:  <kbd>**docker-compose up -d --build**</kbd>
 > > >
-> > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. **::1 dominio-teste** </kbd>
+> > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. <kbd>**::1 dominio-teste** </kbd>
 > >
 > > **Passo 2:** Aplicando permissões nos projetos.
 > > > **Passo 1.1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
