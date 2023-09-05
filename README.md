@@ -45,7 +45,9 @@ e muito mais.
 > > > **Passo 1.8** para adiciona o vhost basta inseri-lo da seguinte forma <kbd>1:: site2-teste</kbd>.
 > > >
 > > > **Passo 1.9** segue abaixo os locais no windows e no linux.
+> > > 
 > > > **Windows:** <kbd>c:\Windows\System32\drivers\etc\hosts</kbd>
+> > > 
 > > > **Linux:** <kbd>/etc/hosts</kbd>
 > > > 
 > > 
