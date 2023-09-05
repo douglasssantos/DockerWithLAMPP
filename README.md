@@ -46,6 +46,7 @@ e muito mais.
 > > >
 > > > **Passo 4.0** segue abaixo os locais no windows e no linux.
 > > > > **Windows:** <kbd>c:\Windows\System32\drivers\etc\hosts</kbd>
+> > > >
 > > > > **Linux:** <kbd>/etc/hosts</kbd>
 > > > 
 > > 
