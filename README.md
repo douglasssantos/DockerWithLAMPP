@@ -22,6 +22,13 @@ e muito mais.
 > > > **Passo 1.1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
 > > >
 > > > **Passo 1.2:** execute comando no terminal: <kbd> **sudo chown -R devuser:devuser /var/www/** </kbd>
+> >
+> > **Passo 3:** LAMP RESOURCE.
+> > > **Passo 1.1:** para criar um novo vhost acesse primeiro o container.</kbd>
+> > >
+> > > **Passo 1.2:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
+> > >
+> > > **Passo 1.2:** após acessar o contaienr digite o comando: <kbd> **sudo lamp** </kbd>
 > > 
 > > **Passo 5:** Após toda a conclusão dos passos realize a migração dos banco de dados dentro de cada projeto e se necessário edite o arquvo <kbd> **.env** </kbd>.
 <br>
