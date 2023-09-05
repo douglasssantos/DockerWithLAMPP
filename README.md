@@ -52,7 +52,7 @@ e muito mais.
 > > 
 > > **Passo 5:** Após toda a conclusão dos passos realize a migração dos banco de dados dentro de cada projeto e se necessário edite o arquvo <kbd> **.env** </kbd>.
 > > > **Passo 5.1:** para conectar com o banco de dados basta inserir a referência do container como host e as credenciais de acesso. segue abaixo alguns exemplos.
-> > >  <kbd>DB_HOST=mariadb
+<kbd> DB_HOST=mariadb
 DB_PORT=3306
 DB_DATABASE=panel
 DB_USERNAME=mariadb
