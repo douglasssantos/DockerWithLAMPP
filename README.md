@@ -1,59 +1,22 @@
-# Container Docker K8 Bank
+# Docker LAMPP
 
-O repositório acompanha um recurso criado em shell script para auxilio na instalação do ambiente.
+Neste projeto foi incorporado os seguintes recursos: PHP 8.1, APACHE, POSTGRES, MARIADB, COMPOSER, NPM, LAMP-RESOURCE, SUPERVISOR e muitos outros.
 
-com ele você tem o auxilio na instalação dos **Repositórios da K8 no Git, Execução do Composer e NPM + Execução automática para Buildar e Subir o Container para Docker**
+um ambiente docker pronto para uso em diversas situações, contendos todos os recursos necessários para o desenvolvimento frontend e backend.
 
-tambem tem o auxilio na criação de vHost para desenvolvimento local: opção de multi-sites do Apache.
+e tambem conta com a função multi site do apache ativa e configurada para trabalhar vhosts dinamicamente.
+
+O repositório acompanha um recurso criado em shell script para auxilio na preparação do ambiente.
 
 e muito mais.
 
-> O Reposótrio Contém auto instaladores compativel com Windows/Linux/Mac
-> dentre eles existem quatro instaladores um com execução do docker e outro sem.
-> > **Clone_Repositories_With_Docker_For_Windows.bat** > <code>Com Docker</code> | Compativel apenas com <code>Windows</code>
-> > **Clone_Repositories_Without_Docker_For_Windows.bat** > <code>Sem Docker</code> | Compativel apenas com <code>Windows</code>
-> > **Clone_Repositories_With_Docker_For_Linux.sh** > <code>Com Docker</code> | Compativel apenas com <code>Linux/Mac</code>
-> > **Clone_Repositories_Without_Docker_For_Linux.sh** > <code>Sem Docker</code> | Compativel apenas com <code>Linux/Mac</code>
-
-#### Atenção antes de executar os autos instaladores é necessário já ter instalado em seu computador as seguintes ferramentas:<code> Docker, PHP, NPM e Composer </code>, pois elas serão executadas no momento da instalação.
-
 ----------------------------------------------------------------------------------------------------------------------
 > ### Passo a Passo para Instalação  
-> > **Passo 1:** Clone o DockerK8Bank com o comando: <code>**git clone https://github.com/douglasssantos/DockerK8Bank.git**</code>  
+> > > **Passo 1:** acesse a pasta do projeto e edite o arquivo docker-compose.yaml 
+> > > **Passo 2:** acesse a pasta do projeto, e execute o comando:  <kbd>**docker-compose up -d --build**</kbd>
+> > > **Passo 3:** adicione o vhost ao hosts do seu sistema operacional. **::1 dominio-teste** </kbd>
 > >
-> > **Passo 2:** Acesse a pasta do repositório ou via terminal: <kbd> **cd DockerK8Bank/** </kbd>  
-> >
-> > **Passo 3:** Apenas para <code>**Linux/Mac**</code>:
-> > > **Passo 1.1:** abra o arquivo com um editor de texto:<br><kbd>**Clone_Repositories_With_Docker_For_Linux.sh ou Clone_Repositories_Without_Docker_For_Linux.sh**</kbd>
-> > >
-> > > **Passo 1.2:** Procure por <code>Token Aqui</code> e substitua pelo seu token do git, exemplo abaixo de onde está no arquivo:<br><kbd> **GIT_TOKEN="Token Aqui"** </kbd>
-> > >
-> > > **Passo 1.3:** feche o arquivo e execute o comando no terminal:<br><kbd>**sudo chmod +x Clone_Repositories_With_Docker_For_Linux.sh ou Clone_Repositories_Without_Docker_For_Linux.sh**</kbd>
-> > >
-> > > **Passo 1.4:** execute o comando no terminal:<br><kbd>**sudo ./Clone_Repositories_With_Docker_For_Linux.sh ou ./Clone_Repositories_Without_Docker_For_Linux.sh**</kbd>
-> > >
-> > > **Passo 1.5:** Aguarde toda a instalação.
-> > > 
-> > > **Configuração (após a conclusão da etapa 3.1.4):**
-> > >
-> > > **Passo 2.1:** execute o comando no terminal <code>Mac</code> <kbd>**sudo echo '::1 k8-backoffice k8-onboarding k8-onboarding-api k8-onboarding-v2-api k8-rh k8-webconta k8-webconta-api' >> /private/etc/hosts**</kbd>
-> > >
-> > > **Passo 2.2:** execute o comando no terminal <code>Linux</code> <kbd>**sudo echo -e '::1 k8-backoffice k8-onboarding k8-onboarding-api k8-onboarding-v2-api k8-rh k8-webconta k8-webconta-api' >> /etc/hosts**</kbd>
-> > 
-> > **Passo 3:** Apenas para <code>**Windows**</code>: 
-> > > **Passo 1.1:** abra o arquivo com um editor de texto:<br><kbd>**Clone_Repositories_With_Docker_For_Windows.bat ou Clone_Repositories_Without_Docker_For_Windows.bat**</kbd>
-> > >
-> > > **Passo 1.2:** substitua por seu token do git onde está localizado <code>Token Aqui</code> :<br><kbd> **set GIT_TOKEN=Token Aqui** </kbd>
-> > >
-> > > **Passo 1.3:** feche e execute o arquivo:<br><kbd>**Clone_Repositories_With_Docker_For_Windows.bat ou Clone_Repositories_Without_Docker_For_Windows.bat**</kbd>
-> > >
-> > > **Passo 1.4:** Aguarde toda a instalação.
-> > >
-> > > **Configuração (após a conclusão da etapa 3.1.3):**
-> > >
-> > > **Passo 2:** Abra como adiministrador copie o texto abaixo e cole dentro do arquivo <kbd>**Hosts**</kbd> em <kbd>**c:\Windows\System32\drivers\etc**</kbd>:<br><kbd> **::1 k8-backoffice k8-onboarding k8-onboarding-api k8-onboarding-v2-api k8-rh k8-webconta k8-webconta-api** </kbd>
-> >
-> > **Passo 4:** Aplicando permissões nos projetos.
+> > **Passo 2:** Aplicando permissões nos projetos.
 > > > **Passo 1.1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
 > > >
 > > > **Passo 1.2:** execute comando no terminal: <kbd> **sudo chown -R devuser:devuser /var/www/** </kbd>
