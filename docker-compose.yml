@@ -8,7 +8,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_MULTIPLE_DATABASES: k8_onboarding,k8_onboarding_v2,k8_conta,k8_backoffice,k8_rh
+      POSTGRES_MULTIPLE_DATABASES: teste_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_INITDB: |
