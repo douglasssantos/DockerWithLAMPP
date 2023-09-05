@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile-Mariadb
     restart: always
     environment:
-      MYSQL_MULTIPLE_DATABASES: db_teste,db_teste2
+      MARIADB_MULTIPLE_DATABASES: db_teste,db_teste2
       MARIADB_USER: mariadb
       MARIADB_PASSWORD: root
       MARIADB_ROOT_PASSWORD: root
