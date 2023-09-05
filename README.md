@@ -12,7 +12,7 @@ e muito mais.
 
 ----------------------------------------------------------------------------------------------------------------------
 > ### Passo a Passo para Instalação  
-> > > **Passo 1:** acesse a pasta do projeto e edite o arquivo docker-compose.yaml
+> > > **Passo 1:** acesse a pasta do projeto e edite o arquivo docker-compose.yaml, insira os banco de dados nas variaveis POSTGRES_MULTIPLE_DATABASES e MYSQL_MULTIPLE_DATABASES, cada banco de dados separado por virgula. se precisar alterar os dados altere as variaveis de credenciais no containers mariadb e postgres.
 > > > 
 > > > **Passo 2:** acesse a pasta do projeto, e execute o comando:  <kbd>**docker-compose up -d --build**</kbd>
 > > >
