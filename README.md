@@ -10,6 +10,11 @@ O repositório acompanha um recurso criado em shell script para auxilio na prepa
 
 e muito mais.
 
+> ### Dica!
+> > Em sistemas operacionais windows, é indicado clonar o repositório dentro do WSL para evitar as transpilação de tipos de dados linux para windows, fazendo com que o docker perca desempenho.
+> > Instale o repositório e suba o container por meio do WSL.
+> > no demais sistemas operacionais segue a instalação comum. 
+
 ----------------------------------------------------------------------------------------------------------------------
 > ### Passo a Passo para Instalação  
 > > > **Passo 1:** acesse a pasta do projeto e edite o arquivo docker-compose.yaml, insira os banco de dados nas variaveis <kbd>POSTGRES_MULTIPLE_DATABASES</kbd> e <kbd>MYSQL_MULTIPLE_DATABASES</kbd>, cada banco de dados separado por virgula. se precisar alterar os dados altere as variaveis de credenciais no containers mariadb e postgres.
