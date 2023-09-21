@@ -11,7 +11,7 @@ O repositório acompanha um recurso criado em shell script para auxilio na prepa
 e muito mais.
 
 > ### Dica!
-> > Em sistemas operacionais windows, é indicado clonar o repositório dentro do WSL para evitar as transpilação de tipos de dados linux para windows, fazendo com que o docker perca desempenho.
+> > Em sistemas operacionais windows, é indicado clonar o repositório dentro do WSL, A ponto de evitar a transpilação de tipos de dados linux para windows, fazendo com que o docker perca desempenho.
 > > Instale o repositório e suba o container por meio do WSL.
 > > no demais sistemas operacionais segue a instalação comum. 
 
