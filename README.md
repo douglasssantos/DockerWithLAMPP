@@ -33,7 +33,7 @@ e muito mais.
 > > >
 > > > **Passo 3.1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
 > > >
-> > > **Passo 3.2:** após acessar o contaienr digite o comando: <kbd> **sudo lamp** </kbd>
+> > > **Passo 3.2:** após acessar o container digite o comando: <kbd> **sudo lamp** </kbd>
 > > >
 > > > **Passo 3.3:** após selecione a opção: <kbd> **[1] APACHE** </kbd>
 > > >
