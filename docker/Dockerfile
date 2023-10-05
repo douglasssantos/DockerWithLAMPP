@@ -16,30 +16,15 @@ EXPOSE 80
 
 VOLUME $APP_DIR
 
-RUN apt-get update
-
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get install -y \
-    git \
-    zip \
-    curl \
-    sudo \
-    unzip \
-    libicu-dev \
-    libbz2-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
-    libfreetype6-dev \
-    g++ \
-    libsodium-dev \
-    libzip-dev \
-    libonig-dev \
-    libpq-dev \
-    net-tools \
-    nano
+RUN apt-get update && apt-get install -y git zip curl sudo unzip libicu-dev libbz2-dev libpng-dev libjpeg-dev libmcrypt-dev \
+    libreadline-dev libfreetype6-dev g++ libsodium-dev libzip-dev libonig-dev libpq-dev net-tools nano \
+    supervisor libcap2-bin dnsutils librsvg2-bin fswatch libc-client-dev libkrb5-dev
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]
 
 RUN a2enmod rewrite headers
 
@@ -63,7 +48,10 @@ RUN docker-php-ext-install \
     pgsql \
     gd \
     sodium \
-    zip
+    zip 
+
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+RUN pecl install redis && docker-php-ext-enable redis
     
 COPY ./php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
@@ -82,7 +70,10 @@ ENV PATH="$NVM_DIR/versions/node/v$NODE_VERSION/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
+# RUN deluser devuser
+# RUN rm -R /home/devuser/
+
+RUN useradd -G www-data,root -u $uid -d /home/devuser devuser 2> /dev/null
 
 RUN mkdir -p /home/devuser/.composer && chown -R devuser:www-data /home/devuser
 COPY --chown=devuser:www-data . /var/www
