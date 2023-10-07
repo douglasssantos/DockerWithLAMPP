@@ -78,6 +78,8 @@ RUN useradd -G www-data,root -u $uid -d /home/devuser devuser 2> /dev/null
 RUN mkdir -p /home/devuser/.composer && chown -R devuser:www-data /home/devuser
 COPY --chown=devuser:www-data . /var/www
 
+CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
+
 #RUN git clone https://github.com/douglasssantos/LampResources.git /home/devuser/LampResources
 
 #RUN chmod +x /home/devuser/LampResources/lamp
