@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 
 LABEL maintainer="Douglas S. Santos"
 
-ARG PHP_V
-ARG NODE_V
+ARG PHP_VERSION
+ARG NODE_VERSION
 
 ARG uid
 
@@ -22,47 +22,42 @@ VOLUME $APP_DIR
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update \ 
-    && apt-get install -y apache2
+# RUN apt-get install -y software-properties-common nmap wget sudo net-tools nano
+# RUN apt-get install -y ppa-purge
+# RUN add-apt-repository ppa:ondrej/php -y \
+#     && apt-get update
 
-RUN ufw app info "Apache Full" && ufw allow "Apache Full"
-
-RUN apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils \
-    && curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x14aa40ec0831756756d7f66c4f4ea0aae5267a6c' | gpg --dearmor | tee /usr/share/keyrings/ppa_ondrej_php.gpg > /dev/null \
-    && echo "deb [signed-by=/usr/share/keyrings/ppa_ondrej_php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
+RUN apt-get update \
+    && mkdir -p /etc/apt/keyrings \
+    && apt-get install -y apache2 gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils librsvg2-bin fswatch  nmap wget sudo net-tools nano \
+    && curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x14aa40ec0831756756d7f66c4f4ea0aae5267a6c' | gpg --dearmor | tee /etc/apt/keyrings/ppa_ondrej_php.gpg > /dev/null \
+    && echo "deb [signed-by=/etc/apt/keyrings/ppa_ondrej_php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
     && apt-get update \
-    && apt-get install -y sudo net-tools nano
-    && apt-get install -y php$vPHP
-    && apt-get install -y php$PHP_V-cli php$PHP_V-dev \
-       php$PHP_V-pgsql php$PHP_V-sqlite3 php$PHP_V-gd php$PHP_V-imagick \
-       php$PHP_V-curl php$PHP_V-common php$PHP_V-tidy php$PHP_V-xmlrpc \
-       php$PHP_V-imap php$PHP_V-mysql php$PHP_V-mbstring \
-       php$PHP_V-xml php$PHP_V-zip php$PHP_V-bcmath php$PHP_V-soap \
-       php$PHP_V-intl php$PHP_V-readline php$PHP_V-xsl php$PHP_V-opcache \
-       php$PHP_V-ldap \
-       php$PHP_V-msgpack php$PHP_V-igbinary php$PHP_V-redis php$PHP_V-swoole \
-       php$PHP_V-memcached php$PHP_V-pcov php$PHP_V-xdebug \
+    && apt-get install -y php$PHP_VERSION php$PHP_VERSION-cli php$PHP_VERSION-cgi php$PHP_VERSION-ssh2 \
+       php$PHP_VERSION-pgsql php$PHP_VERSION-sqlite3 php$PHP_VERSION-gd php$PHP_VERSION-imagick \
+       php$PHP_VERSION-curl php$PHP_VERSION-common php$PHP_VERSION-tidy php$PHP_VERSION-xmlrpc \
+       php$PHP_VERSION-imap php$PHP_VERSION-mysql php$PHP_VERSION-mbstring \
+       php$PHP_VERSION-xml php$PHP_VERSION-zip php$PHP_VERSION-bcmath php$PHP_VERSION-soap \
+       php$PHP_VERSION-intl php$PHP_VERSION-readline php$PHP_VERSION-xsl php$PHP_VERSION-opcache \
+       php$PHP_VERSION-ldap \
+       php$PHP_VERSION-msgpack php$PHP_VERSION-igbinary php$PHP_VERSION-redis php$PHP_VERSION-swoole \
+       php$PHP_VERSION-memcached php$PHP_VERSION-pcov php$PHP_VERSION-xdebug \
+    && phpenmod pdo_pgsql && phpenmod pdo_mysql \
+    && curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarn.gpg >/dev/null \
     && echo "deb [signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
+    apt-get update \
     && apt-get install -y yarn \
     && apt-get -y autoremove \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    && phpenmod pdo_pgsql
-    && phpenmod pdo_mysql
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \ 
 
-RUN a2enmod rewrite headers    
-
-RUN setcap "cap_net_bind_service=+ep" /usr/bin/php$PHP_V
+RUN setcap "cap_net_bind_service=+ep" /usr/bin/php$PHP_VERSION
 
 COPY ./php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 
-ARG NODE_VERSION
 ENV NVM_DIR=/root/.nvm
 RUN . "$NVM_DIR/nvm.sh" && nvm install $NODE_VERSION
 RUN . "$NVM_DIR/nvm.sh" && nvm use v$NODE_VERSION
@@ -77,4 +72,4 @@ RUN mkdir -p /home/devuser/.composer && chown -R devuser:www-data /home/devuser
 COPY --chown=devuser:www-data . /var/www
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY php.ini /etc/php/8.1/cli/conf.d/custom-php.ini
+COPY ./php/php.ini /etc/php/8.1/cli/conf.d/custom-php.ini

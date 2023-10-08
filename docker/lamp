@@ -1050,7 +1050,7 @@ MenuPHP(){
     2) InstalarVersaoPhp;;
     3) ListarVersoesInstaladasPHP;;
     4) UsarOutraVersaoPHP;;
-    5) ListarVersoesNodeInstaladas;;
+    5) DesinstalarPHP;;
     6) adicionarRepoPhp;;
     0) Menu;;
     *) "Opcao Invalida!" ; echo ; MenuPHP ;;
