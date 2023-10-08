@@ -28,7 +28,7 @@ RUN apt-get update \
     supervisor libcap2-bin dnsutils librsvg2-bin fswatch libc-client-dev libkrb5-dev
 
 RUN apt-get install -y software-properties-common nmap wget sudo net-tools nano \
-    && pecl install redis xdebug-3.1.5 imap
+    && pecl install redis imap
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
@@ -52,4 +52,19 @@ RUN node --version
 RUN npm --version
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./php/php.ini /etc/php/8.1/cli/conf.d/custom-php.ini
+
+ARG PHP_VERSION
+ARG XDEBUG_VERSION
+ARG XDEBUG_CLIENT_PORT
+
+COPY ./php/php.ini /etc/php/$PHP_VERSION/cli/conf.d/custom-php.ini
+ 
+RUN pecl install xdebug-$XDEBUG_VERSION 
+RUN docker-php-ext-enable xdebug 
+
+# Configure Xdebug
+RUN echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini 
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini 
+RUN echo "xdebug.log=/var/www/html/xdebug/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini 
+RUN echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/xdebug.ini 
+RUN echo "xdebug.client_port=${XDEBUG_CLIENT_PORT}" >> /usr/local/etc/php/conf.d/xdebug.ini
