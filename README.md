@@ -25,6 +25,7 @@ e muito mais.
 > >
 > > **Passo 2:** Aplicando permissões nos projetos.
 > > > **Passo 1.1:** caso tenha instalado as alias, para acessar o container, apenas insira comando no terminal: <kbd>**projects**</kbd>
+> > >
 > > > **Passo 1.1-1:** acesse o container com o comando no terminal: <kbd>**docker exec -it projects bash**</kbd>
 > > >
 > > > **Passo 1.2:** execute comando no terminal: <kbd> **sudo chown -R devuser:devuser /var/www/** </kbd>
