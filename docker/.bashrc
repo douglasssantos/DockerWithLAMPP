@@ -8,9 +8,9 @@
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
 # eval "$(dircolors)"
-# alias ls='ls $LS_OPTIONS'
-# alias ll='ls $LS_OPTIONS -l'
-# alias l='ls $LS_OPTIONS -lA'
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
 #
 # Some more alias to avoid making mistakes:
 # alias rm='rm -i'
@@ -22,7 +22,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# Alias Project Laravel
+# Alias Project Laravel 
+alias apache-start='sudo /etc/init.d/apache2 start'
+alias apache-stop='sudo /etc/init.d/apache2 stop'
+alias apache-restart='sudo /etc/init.d/apache2 restart'
+alias apache-reload='sudo /etc/init.d/apache2 reload'
 alias clr='php artisan optimize:clear && php artisan optimize'
 alias cls='php artisan optimize:clear && php artisan optimize'
 alias cr='php artisan optimize:clear && php artisan optimize'
@@ -70,6 +74,7 @@ alias c='composer'
 alias ci='composer install'
 alias cu='composer update'
 alias cda='composer dump-autoload'
+alias crd='sudo rm -R vendor/'
 alias n='npm'
 alias ni='npm install'
 alias nu='npm update'
@@ -80,5 +85,6 @@ alias nprod='npm run prod'
 alias nbuild='npm run build'
 alias nrd='sudo rm -R node_modules/'
 alias apachown='sudo chown -R www-data:www-data'
+alias chwn='sudo chown -R www-data:www-data'
 alias vsc="code ."
 alias projects="docker exec -it projects bash"

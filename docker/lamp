@@ -47,7 +47,7 @@ InstalarVersaoPhp(){
    echo "============================"
    echo
    echo "Reiniciando Apache"
-   sudo systemctl restart apache2
+   sudo /etc/init.d/apache2 reload
    echo "Apache Reiniciado com sucesso!"
    echo
    echo "============================"
@@ -85,7 +85,7 @@ InstalarVersaoPhpLamp(){
    echo "============================"
    echo
    echo "Reiniciando Apache"
-   sudo systemctl restart apache2
+   sudo /etc/init.d/apache2 reload
    echo "Apache Reiniciado com sucesso!"
    echo
    echo "============================"
@@ -120,7 +120,7 @@ InstalarUltimaVersaoPhp(){
    echo "============================"
    echo
    echo "Reiniciando Apache"
-   sudo systemctl restart apache2
+   sudo /etc/init.d/apache2 reload
    echo "Apache Reiniciado com sucesso!"
    echo
    echo "============================"
@@ -370,7 +370,7 @@ AdicionarDominioOnline(){
   echo "============================"
   echo
   echo "Reiniciando Apache"
-  sudo systemctl restart apache2
+  sudo /etc/init.d/apache2 reload
   echo "Apache Reiniciado com sucesso!"
   #sudo systemctl status apache2
   echo "============================"
@@ -391,7 +391,7 @@ AdicionarDominioOnline(){
   echo "============================"
   echo
   echo "Recarregando configurações do Apache"
-  sudo systemctl reload apache2
+  sudo /etc/init.d/apache2 reload
   echo "Configurações recarregadas com sucesso!"
   echo "============================"
   echo
@@ -419,7 +419,7 @@ AdicionarDominioOnline(){
   echo "============================"
   echo
   echo "Reiniciando Apache"
-  sudo systemctl restart apache2
+  sudo /etc/init.d/apache2 reload
   echo "Apache Reiniciado com sucesso!"
   echo "============================"
   echo
@@ -498,7 +498,7 @@ AdicionarDominioLocal(){
   echo "============================"
   echo
   echo "Reiniciando Apache"
-  sudo systemctl restart apache2
+  sudo /etc/init.d/apache2 reload
   echo "Apache Reiniciado com sucesso!"
   #sudo systemctl status apache2
   echo "============================"
@@ -519,7 +519,7 @@ AdicionarDominioLocal(){
   echo "============================"
   echo
   echo "Recarregando configurações do Apache"
-  sudo systemctl reload apache2
+  sudo /etc/init.d/apache2 reload
   echo "Configurações recarregadas com sucesso!"
   echo "============================"
   echo
@@ -560,7 +560,7 @@ AdicionarDominioLocal(){
 
   fi
   echo "Reiniciando Apache"
-  sudo systemctl restart apache2
+  sudo /etc/init.d/apache2 reload
   echo "Apache Reiniciado com sucesso!"
   echo "============================"
   echo
@@ -674,7 +674,7 @@ RedefinirConfigApache(){
   echo "============================"
   echo
   echo "Reiniciando Apache"
-  sudo systemctl restart apache2
+  sudo /etc/init.d/apache2 reload
   echo "Apache Reiniciado com sucesso!"
   echo "============================"
   echo

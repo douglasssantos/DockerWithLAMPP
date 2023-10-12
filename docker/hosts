@@ -9,3 +9,8 @@ ff02::2 ip6-allrouters
 
 127.0.0.1 	  site2-teste
 127.0.0.1         kit-v3
+127.0.0.1         k8-backoffice
+127.0.0.1         k8-onboarding-api
+127.0.0.1         k8-webconta
+127.0.0.1         k8-webconta
+127.0.0.1         k8-webconta-api
