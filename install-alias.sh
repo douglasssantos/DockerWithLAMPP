@@ -67,8 +67,8 @@ alias vsc='code .'\n
 alias projects='docker exec -it projects bash'\n
 "
 
-sudo echo -e $aliascontent >> ~/.bashrc
+sudo echo -e $aliascontent >> $HOME/.bashrc
 
-source ~/.bashrc
+source $HOME/.bashrc
 
 echo "Alias Installed with success."
