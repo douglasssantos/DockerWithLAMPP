@@ -84,7 +84,7 @@ alias drm='docker image rm'\n
 alias drmi='docker image rmi'\n
 "
 
-sudo echo -e $aliascontent >> $HOME/.bashrc
+echo -e $aliascontent >> $HOME/.bashrc
 
 source $HOME/.bashrc
 
