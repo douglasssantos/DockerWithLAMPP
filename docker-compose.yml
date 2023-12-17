@@ -131,6 +131,7 @@ services:
       VSCODE_SERVE_MODE: '${VSCODE_SERVE_MODE:-serve-local}'
     volumes:
       - './docker/vscode:/root/.vscode-server'
+      - './:/root/srv'
     depends_on:
       - postgres
       - mariadb
