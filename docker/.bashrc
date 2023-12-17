@@ -88,3 +88,7 @@ alias apachown='sudo chown -R www-data:www-data'
 alias chwn='sudo chown -R www-data:www-data'
 alias vsc="code ."
 alias projects="docker exec -it projects bash"
+alias laravel:repair="mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework"
+alias l:repair="mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework"
+alias pa:repair="mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework"
+alias repair="mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework"
