@@ -69,6 +69,7 @@ alias laravel:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod
 alias l:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
 alias pa:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
 alias repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
+alias dkclear='docker system prune -a'\n
 "
 
 sudo echo -e $aliascontent >> $HOME/.bashrc
