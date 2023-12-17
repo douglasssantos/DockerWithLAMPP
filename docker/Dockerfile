@@ -34,7 +34,12 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 
 RUN docker-php-ext-install bz2 intl sockets iconv bcmath opcache calendar mbstring pdo pdo_mysql pdo_pgsql mysqli pgsql gd sodium zip 
-RUN docker-php-ext-enable opcache redis
+
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick
+
+RUN docker-php-ext-enable opcache redis imagick
 
 COPY ./php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
