@@ -65,6 +65,10 @@ alias nrd='sudo rm -R node_modules/'\n
 alias apachown='sudo chown -R www-data:www-data'\n
 alias vsc='code .'\n
 alias projects='docker exec -it projects bash'\n
+alias laravel:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
+alias l:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
+alias pa:repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
+alias repair='mkdir -p storage/framework/{sessions,views,cache} && chmod -R 775 storage/framework'\n
 "
 
 sudo echo -e $aliascontent >> $HOME/.bashrc
