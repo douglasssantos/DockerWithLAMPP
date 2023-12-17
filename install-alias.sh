@@ -82,6 +82,8 @@ alias d-down='docker-compose down'\n
 alias d-stop='docker-compose stop'\n
 alias drm='docker image rm'\n
 alias drmi='docker image rmi'\n
+alias checkport='sudo netstat -lpn |grep '\n
+alias killport=\"_killport() { sudo kill -9 'sudo lsof -t -i$1';}; _killport\"\n
 "
 
 echo -e $aliascontent >> $HOME/.bashrc
