@@ -3,10 +3,10 @@
 # Created by: Douglas S. Santos
 # E-mail: douglassantos2127@gmail.com
 # whatsapp: +55 21 97553-3534
-
 aliascontent="\n\n
 # Alias for Project Laravel, NPM, GIT, Docker access Projects, VSCode AND Alias Chown\n
 alias clr='php artisan optimize:clear && php artisan optimize'\n
+alias ssh-generate='ssh-keygen -t rsa -b 4096 -C '\n
 alias cls='php artisan optimize:clear && php artisan optimize'\n
 alias cr='php artisan optimize:clear && php artisan optimize'\n
 alias l:c='php artisan optimize:clear && php artisan optimize'\n
