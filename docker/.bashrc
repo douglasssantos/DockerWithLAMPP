@@ -23,6 +23,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # Alias Project Laravel 
+alias ssh-generate='ssh-keygen -t rsa -b 4096 -C '
 alias apache-start='sudo /etc/init.d/apache2 start'
 alias apache-stop='sudo /etc/init.d/apache2 stop'
 alias apache-restart='sudo /etc/init.d/apache2 restart'
