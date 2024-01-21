@@ -1,211 +1,69 @@
-version: '3'
-services:
-  postgres:
-    image: 'postgres:${POSTGRES_VERSION:-14}'
-    container_name: 'postgres'
-    restart: always
-    ports:
-      - '${POSTGRES_PORT:-5432}:5432'
-    environment:
-      POSTGRES_MULTIPLE_DATABASES: '${DATABASE_CREATE:-dbtest}'
-      POSTGRES_USER: '${POSTGRES_USER:-postgres}'
-      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-root}'
-      POSTGRES_INITDB: |
-        sed -i -e 's/max_connections.*/max_connections = 5000/' /var/lib/postgresql/data/postgresql.conf
-        sed -i -e 's/#log_min_duration_statement = .*/log_min_duration_statement = 0/' /var/lib/postgresql/data/postgresql.conf
-    volumes:
-      - lampp-postgres:/var/lib/postgresql/data/
-      - './docker/create_databases_postgres.sh:/docker-entrypoint-initdb.d/create_databases_postgres.sh'
-    stdin_open: true
-    networks:
-      - network
+USER_UID='1000'
+APACHE_USER='www-data'
+APACHE_GROUP='www-data'
 
-  mariadb:
-    image: 'mariadb:${MARIADB_VERSION:-10}'
-    container_name: 'mariadb'
-    restart: always
-    environment:
-      MARIADB_MULTIPLE_DATABASES: '${DATABASE_CREATE:-dbtest}'
-      MARIADB_USER: '${DATABASE_USER:-mariadb}'
-      MARIADB_PASSWORD: '${MARIADB_PASSWORD:-root}'
-      MARIADB_ROOT_PASSWORD: '${MARIADB_PASSWORD:-root}'
-    volumes:
-      - lampp-mysql:/var/lib/mysql
-      - './docker/create_databases_mariadb.sh:/docker-entrypoint-initdb.d/create_databases_mariadb.sh'
-    ports:
-      - '${MARIADB_PORT:-3306}:3306'
-    stdin_open: true
-    networks:
-      - network
-      
-  redis:
-    image: 'redis:${REDIS_VERSION:-alpine}'
-    container_name: 'redis'
-    restart: always
-    ports:
-        - '${REDIS_PORT:-6379}:6379'
-    volumes:
-        - 'lampp-redis:/data'
-    networks:
-        - network
-    healthcheck:
-        test:
-            - CMD
-            - redis-cli
-            - ping
-        retries: 3
-        timeout: 5s           
+NODE_VERSION='14.21.3'
 
-  mailhog:
-    image: 'mailhog/mailhog:${MAILHOG_VERSION:-latest}'
-    container_name: 'mailhog'
-    restart: always
-    logging:
-      driver: 'none'  # disable saving logs
-    ports:
-      - '${MAILHOG_SMTP_PORT:-1025}:1025' # port smtp
-      - '${MAILHOG_WEB_PORT:-8025}:8025' # port web
-    networks:
-      - network
+PHP_VERSION='8.1'
+PHP_XDEBUG_VERSION='3.1.5'
+PHP_XDEBUG_CLIENT_PORT='9003'
+PHP_XDEBUG_MODE='off'
+PHP_XDEBUG_CONFIG='client_host=host.docker.internal'
 
-  mailpit:
-    image: 'axllent/mailpit:${MAILPIT_VERSION:-latest}'
-    container_name: 'mailpit'
-    restart: always
-    ports:
-      - '${MAILPIT_SMTP_PORT:-1026}:1025' # port smtp
-      - '${MAILPIT_WEB_PORT:-8026}:8025' # port web
-    networks:
-        - network
+DATABASE_CREATE='anonymous,shorteners,kit,fts_admin,fts_onboarding'
 
-  soketi:
-    image: 'quay.io/soketi/soketi:${SOKETI_VERSION:-latest-16-alpine}'
-    container_name: 'soketi'
-    restart: always
-    environment:
-        SOKETI_DEBUG: '${SOKETI_DEBUG:-1}'
-        SOKETI_METRICS_SERVER_PORT: '${SOKETI_METRICS_PORT:-9601}'
-        SOKETI_DEFAULT_APP_ID: '${SOKETI_APP_ID:-app-id}'
-        SOKETI_DEFAULT_APP_KEY: '${SOKETI_APP_KEY:-app-key}'
-        SOKETI_DEFAULT_APP_SECRET: '${SOKETI_APP_SECRET:-app-secret}'
-    ports:
-        - '${SOKETI_PORT:-6001}:6001'
-        - '${SOKETI_METRICS_PORT:-9601}:9601'
-    networks:
-        - network
+POSTGRES_VERSION='16'
+POSTGRES_PORT='5732'
+POSTGRES_USER='postgres'
+POSTGRES_PASSWORD='root'
 
-  minio:
-    image: 'minio/minio:${MINIO_VERSION:-latest}'
-    container_name: 'minio'
-    restart: always
-    ports:
-        - '${MINIO_PORT:-9000}:9000'
-        - '${MINIO_CONSOLE_PORT:-8900}:8900'
-    environment:
-        MINIO_ROOT_USER: '${MINIO_USERNAME:-sail}'
-        MINIO_ROOT_PASSWORD: '${MINIO_PASSWORD:-password}'
-    volumes:
-        - 'lampp-minio:/data'
-    networks:
-        - network
-    command: 'minio server /data/minio --console-address ":${MINIO_CONSOLE_PORT:-8900}"'
-    healthcheck:
-        test:
-            - CMD
-            - curl
-            - '-f'
-            - 'http://localhost:${MINIO_PORT:-9000}/minio/health/live'
-        retries: 3
-        timeout: 5s
+MARIADB_VERSION='10'
+MARIADB_PORT='3706'
+MARIADB_USER='mariadb'
+MARIADB_PASSWORD='root'
 
-  vscode:
-    image: 'ahmadnassri/vscode-server:latest'
-    container_name: 'vscode'
-    hostname: 'vscode'
-    restart: always
-    ports:
-      - '${VSCODE_WEB_PORT:-8000}:8000' # port web
-      - '${VSCODE_WEB_PORT2:-8080}:8080' # port web
-    environment:
-      VSCODE_KEYRING_PASS: '${VSCODE_KEYRING_PASS:-123456}'
-      VSCODE_SERVE_MODE: '${VSCODE_SERVE_MODE:-serve-local}'
-    volumes:
-      - './docker/vscode:/root/.vscode-server'
-      - './:/root/srv'
-    depends_on:
-      - postgres
-      - mariadb
-      - projects
-    links:
-      - postgres
-      - mariadb
-      - projects
-    networks:
-        - network
+REDIS_VERSION='alpine'
+REDIS_PORT='6379'
 
-  projects:
-    image: 'php:${PHP_VERSION:-8.1}-apache'
-    # image: php:8.1-apache
-    container_name: 'projects'
-    restart: always
-    tty: true
-    build:
-      context: ./docker
-      dockerfile: Dockerfile
-      # dockerfile: Dockerfile-Apache
-      args:
-        uid: '${USER_UID:-1000}'
-        NODE_VERSION: '${NODE_VERSION:-14.21.3}'
-        PHP_VERSION: '${PHP_VERSION:-8.1}'
-        XDEBUG_VERSION: '${PHP_XDEBUG_VERSION:-3.1.5}'
-        XDEBUG_CLIENT_PORT: '${PHP_XDEBUG_CLIENT_PORT:-9003}'
-    environment:
-      PHP_VERSION: '${PHP_VERSION:-8.1}'
-      XDEBUG_MODE: '${PHP_XDEBUG_MODE:-off}'
-      XDEBUG_CONFIG: '${PHP_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-      APACHE_RUN_USER: '${APACHE_USER:-www-data}'
-      APACHE_RUN_GROUP: '${APACHE_GROUP:-www-data}'
-    ports:
-      - '80:80'
-    volumes:
-      - './projects:/var/www'
-      - './docker/.bashrc:/root/.bashrc'
-      - './docker/hosts:/etc/hosts'
-      - './docker/lamp:/usr/local/bin/lamp'
-      - './docker/apache/conf/dir.conf:/etc/apache2/mods-enabled/dir.conf'
-      - './docker/apache/sites:/etc/apache2/sites-available'
-      - './docker/apache/sites:/etc/apache2/sites-enabled'
-    depends_on:
-      - postgres
-      - mariadb
-      - redis
-      - mailhog
-      - mailpit
-      - soketi
-      - minio
-      - vscode
-    links:
-      - postgres
-      - mariadb
-      - redis
-      - mailhog
-      - mailpit
-      - soketi
-      - minio
-      - vscode
-    networks:
-      - network
-    
-networks:
-  network:
-    driver: bridge
+MAILHOG_VERSION='latest'
+MAILHOG_SMTP_PORT='1025'
+MAILHOG_WEB_PORT='8025'
 
-volumes:
-  lampp-postgres:
-        driver: local
-  lampp-mysql:  
-        driver: local
-  lampp-redis:
-      driver: local
-  lampp-minio:
-      driver: local
+MAILPIT_VERSION='latest'
+MAILPIT_SMTP_PORT='1026'
+MAILPIT_WEB_PORT='8025'
+
+VSCODE_WEB_PORT=8120
+VSCODE_SERVE_MODE='serve-local'
+VSCODE_PASSWORD='123456'
+VSCODE_SUDO_PASSWORD='123456'
+
+
+
+# CONFIGURATION LARAVEL
+# REDIS_HOST=redis
+# REDIS_PASSWORD=null
+# REDIS_PORT=6379
+
+# MAIL_MAILER=smtp
+# MAIL_HOST=mailpit
+# MAIL_PORT=1025
+# MAIL_USERNAME=null
+# MAIL_PASSWORD=null
+# MAIL_ENCRYPTION=null
+# MAIL_FROM_ADDRESS="hello@example.com"
+# MAIL_FROM_NAME="Mail Test"
+
+# AWS_ACCESS_KEY_ID=
+# AWS_SECRET_ACCESS_KEY=
+# AWS_DEFAULT_REGION=us-east-1
+# AWS_BUCKET=
+# AWS_USE_PATH_STYLE_ENDPOINT=false
+
+# PUSHER_APP_ID=app-id
+# PUSHER_APP_KEY=app-key
+# PUSHER_APP_SECRET=app-secret
+# PUSHER_HOST=soketi
+# PUSHER_PORT=6001
+# PUSHER_SCHEME=http
+# PUSHER_APP_CLUSTER=mt1
